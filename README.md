@@ -1,98 +1,96 @@
-tag_cloud
-=========
+Tag Cloud: A Plugin for Pelican
+===============================
 
-This plugin generates a tag-cloud.
+[![Build Status](https://img.shields.io/github/workflow/status/pelican-plugins/tag-cloud/build)](https://github.com/pelican-plugins/tag-cloud/actions)
+[![PyPI Version](https://img.shields.io/pypi/v/pelican-tag-cloud)](https://pypi.org/project/pelican-tag-cloud/)
+![License](https://img.shields.io/pypi/l/pelican-tag-cloud?color=blue)
+
+This Pelican plugin generates a tag cloud from post tags.
 
 Installation
 ------------
 
-In order to use to use this plugin, you have to edit(*) or create(+) the following files::
+This plugin can be installed via:
 
-      blog/
-        ├── pelicanconf.py *
-        ├── content
-        ├── plugins +
-        │     └── tag_cloud.py +
-        └── themes
-              └── mytheme
-                    ├── templates
-                    │      └── base.html *
-                    └── static
-                          └── css
-                               └── style.css *
+    python -m pip install pelican-tag-cloud
 
-In **pelicanconf.py** you have to activate the plugin::
+For more detailed plugin installation instructions, please refer to the [Pelican Plugin Documentation](https://docs.getpelican.com/en/latest/plugins.html).
 
-    PLUGIN_PATHS = ["plugins"]
-    PLUGINS = ["tag_cloud"]
-
-Into your **plugins** folder, you should add tag_cloud.py (from this repository).
-
-In your theme files, you should change **base.html** to apply formats (and sizes) defined in **style.css**, as specified in "Settings", below.
+In order to use to use this plugin, you must edit your theme’s base template and style-sheet. You should change **base.html** to apply formats (and sizes) defined in **style.css**, as specified in _Settings_ below.
 
 Settings
 --------
 
-================================================    =====================================================
-Setting name (followed by default value)            What does it do?
-================================================    =====================================================
-``TAG_CLOUD_STEPS = 4``                             Count of different font sizes in the tag
-                                                    cloud.
-``TAG_CLOUD_MAX_ITEMS = 100``                       Maximum number of tags in the cloud.
-``TAG_CLOUD_SORTING = 'random'``                    The tag cloud ordering scheme.  Valid values:
-                                                    random, alphabetically, alphabetically-rev, size and
-                                                    size-rev
-``TAG_CLOUD_BADGE = True``                          Optionnal setting : can bring **badges**, which mean
-                                                    say : display the number of each tags present
-                                                    on all articles.
-================================================    =====================================================
+| Settings and their default values  |                   What does it do?                    |
+| ---------------------------------- | ----------------------------------------------------- |
+| `TAG_CLOUD_STEPS = 4`              |  Count of different font sizes in the tag cloud       |
+| `TAG_CLOUD_MAX_ITEMS = 100`        |  Maximum number of tags in the cloud                  |
+| `TAG_CLOUD_SORTING = "random"`     |  Tag cloud ordering scheme. Valid values: random, alphabetically, alphabetically-rev, size, and size-rev |
+| `TAG_CLOUD_BADGE = True`           |  Optional setting: turn on **badges**, displaying the number of articles using each tag |
 
-The default theme does not include a tag cloud, but it is pretty easy to add one::
+Usage
+-----
 
-    <ul class="tagcloud">
-        {% for tag in tag_cloud %}
-            <li class="tag-{{ tag.1 }}">
-                <a href="{{ SITEURL }}/{{ tag.0.url }}">
-                {{ tag.0 }}
-                    {% if TAG_CLOUD_BADGE %}
-                        <span class="badge">{{ tag.2 }}</span>
-                    {% endif %}
-                </a>
-            </li>
-        {% endfor %}
-    </ul>
+The default theme does not include a tag cloud, but it is fairly easy to add one:
 
-You should then also define CSS styles with appropriate classes (tag-1 to tag-N,
-where N matches ``TAG_CLOUD_STEPS``), tag-1 being the most frequent, and
-define a ``ul.tagcloud`` class with appropriate list-style to create the cloud.
-You should copy/paste this **badge** CSS rule ``ul.tagcloud .list-group-item <span>.badge``
-if you're using ``TAG_CLOUD_BADGE`` setting. (this rule, potentially long , is suggested to avoid
-conflicts with CSS libs as twitter Bootstrap)
+```jinja2
+<ul class="tagcloud">
+    {% for tag in tag_cloud %}
+        <li class="tag-{{ tag.1 }}">
+            <a href="{{ SITEURL }}/{{ tag.0.url }}">
+            {{ tag.0 }}
+                {% if TAG_CLOUD_BADGE %}
+                    <span class="badge">{{ tag.2 }}</span>
+                {% endif %}
+            </a>
+        </li>
+    {% endfor %}
+</ul>
+```
 
-For example::
+You should then also define CSS styles with appropriate classes (tag-1 to tag-N, where N matches `TAG_CLOUD_STEPS`), tag-1 being the most frequent, and define a `ul.tagcloud` class with appropriate list-style to create the cloud. You should copy+paste this **badge** CSS rule `ul.tagcloud .list-group-item <span>.badge` if you are using the `TAG_CLOUD_BADGE` setting. (This rule, potentially long, is suggested to avoid conflicts with CSS frameworks such as Twitter Bootstrap.)
 
-    ul.tagcloud {
-      list-style: none;
-        padding: 0;
-    }
+For example:
 
-    ul.tagcloud li {
-        display: inline-block;
-    }
+```css
+ul.tagcloud {
+    list-style: none;
+    padding: 0;
+}
 
-    li.tag-1 {
-        font-size: 150%;
-    }
+ul.tagcloud li {
+    display: inline-block;
+}
 
-    li.tag-2 {
-        font-size: 120%;
-    }
+li.tag-1 {
+    font-size: 150%;
+}
 
-    /* ... add li.tag-3 etc, as much as needed */
+li.tag-2 {
+    font-size: 120%;
+}
 
-    ul.tagcloud .list-group-item span.badge {
-        background-color: grey;
-        color: white;
-    }
+/* ... add li.tag-3 etc, as much as needed */
 
-By default the tags in the cloud are sorted randomly, but if you prefers to have it alphabetically use the `alphabetically` (ascending) and `alphabetically-rev` (descending). Also is possible to sort the tags by it's size (number of articles with this specific tag) using the values `size` (ascending) and `size-rev` (descending).
+ul.tagcloud .list-group-item span.badge {
+    background-color: grey;
+    color: white;
+}
+```
+
+By default, the tags in the cloud are sorted randomly, but if you prefer to have them sorted alphabetically, use `alphabetically` (ascending) and `alphabetically-rev` (descending). Also, it is possible to sort the tags by frequency (number of articles with this specific tag) using the values `size` (ascending) and `size-rev` (descending).
+
+Contributing
+------------
+
+Contributions are welcome and much appreciated. Every little bit helps. You can contribute by improving the documentation, adding missing features, and fixing bugs. You can also help out by reviewing and commenting on [existing issues][].
+
+To start contributing to this plugin, review the [Contributing to Pelican][] documentation, beginning with the **Contributing Code** section.
+
+[existing issues]: https://github.com/pelican-plugins/tag-cloud/issues
+[Contributing to Pelican]: https://docs.getpelican.com/en/latest/contribute.html
+
+License
+-------
+
+This project is licensed under the AGPL-3.0 license.

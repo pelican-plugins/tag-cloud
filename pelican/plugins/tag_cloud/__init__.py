@@ -1,2 +1,1 @@
-from .tag_cloud import *
-
+from .tag_cloud import *  # NOQA

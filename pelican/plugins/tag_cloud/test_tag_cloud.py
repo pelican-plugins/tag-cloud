@@ -1,6 +1,5 @@
 import unittest
 import os
-import six
 import tag_cloud
 from shutil import rmtree
 from tempfile import mkdtemp
@@ -48,7 +47,7 @@ class TestTagCloudGeneration(unittest.TestCase):
             (Tag('fun', self._settings), 3),
             (Tag('python', self._settings), 10)
         ]
-        six.assertCountEqual(self, self.generator.tag_cloud, expected)
+        self.assertCountEqual(self.generator.tag_cloud, expected)
 
     def test_tag_cloud_badge(self):
         self.generator.settings['TAG_CLOUD_STEPS'] = 10
@@ -60,7 +59,7 @@ class TestTagCloudGeneration(unittest.TestCase):
             (Tag('fun', self._settings), 3, 3),
             (Tag('python', self._settings), 10, 1)
         ]
-        six.assertCountEqual(self, self.generator.tag_cloud, expected)
+        self.assertCountEqual(self.generator.tag_cloud, expected)
 
     def test_tag_cloud_alphabetical(self):
         self.generator.settings['TAG_CLOUD_STEPS'] = 10

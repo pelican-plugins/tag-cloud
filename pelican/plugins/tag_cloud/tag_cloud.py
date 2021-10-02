@@ -51,7 +51,7 @@ def generate_tag_cloud(generator):
         tag = (
             tag,
             int(
-                math.floor(
+                round(
                     steps
                     - (steps - 1)
                     * math.log(count - min_count + 1)

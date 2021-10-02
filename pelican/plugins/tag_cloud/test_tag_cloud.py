@@ -48,7 +48,7 @@ class TestTagCloudGeneration(unittest.TestCase):
         expected = [
             (Tag("pelican", self._settings), 1),
             (Tag("plugins", self._settings), 2),
-            (Tag("fun", self._settings), 3),
+            (Tag("fun", self._settings), 4),
             (Tag("python", self._settings), 10),
         ]
         self.assertCountEqual(self.generator.tag_cloud, expected)
@@ -60,7 +60,7 @@ class TestTagCloudGeneration(unittest.TestCase):
         expected = [
             (Tag("pelican", self._settings), 1, 5),
             (Tag("plugins", self._settings), 2, 4),
-            (Tag("fun", self._settings), 3, 3),
+            (Tag("fun", self._settings), 4, 3),
             (Tag("python", self._settings), 10, 1),
         ]
         self.assertCountEqual(self.generator.tag_cloud, expected)
@@ -70,7 +70,7 @@ class TestTagCloudGeneration(unittest.TestCase):
         self.generator.settings["TAG_CLOUD_SORTING"] = "alphabetically"
         tag_cloud.generate_tag_cloud(self.generator)
         expected = [
-            (Tag("fun", self._settings), 3),
+            (Tag("fun", self._settings), 4),
             (Tag("pelican", self._settings), 1),
             (Tag("plugins", self._settings), 2),
             (Tag("python", self._settings), 10),
@@ -85,7 +85,7 @@ class TestTagCloudGeneration(unittest.TestCase):
             (Tag("python", self._settings), 10),
             (Tag("plugins", self._settings), 2),
             (Tag("pelican", self._settings), 1),
-            (Tag("fun", self._settings), 3),
+            (Tag("fun", self._settings), 4),
         ]
         self.assertEqual(self.generator.tag_cloud, expected)
 
@@ -96,7 +96,7 @@ class TestTagCloudGeneration(unittest.TestCase):
         expected = [
             (Tag("pelican", self._settings), 1),
             (Tag("plugins", self._settings), 2),
-            (Tag("fun", self._settings), 3),
+            (Tag("fun", self._settings), 4),
             (Tag("python", self._settings), 10),
         ]
         self.assertEqual(self.generator.tag_cloud, expected)
@@ -107,7 +107,7 @@ class TestTagCloudGeneration(unittest.TestCase):
         tag_cloud.generate_tag_cloud(self.generator)
         expected = [
             (Tag("python", self._settings), 10),
-            (Tag("fun", self._settings), 3),
+            (Tag("fun", self._settings), 4),
             (Tag("plugins", self._settings), 2),
             (Tag("pelican", self._settings), 1),
         ]

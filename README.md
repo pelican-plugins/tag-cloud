@@ -1,7 +1,7 @@
 Tag Cloud: A Plugin for Pelican
 ===============================
 
-[![Build Status](https://img.shields.io/github/workflow/status/pelican-plugins/tag-cloud/build)](https://github.com/pelican-plugins/tag-cloud/actions)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/pelican-plugins/tag-cloud/main.yml?branch=main)](https://github.com/pelican-plugins/tag-cloud/actions)
 [![PyPI Version](https://img.shields.io/pypi/v/pelican-tag-cloud)](https://pypi.org/project/pelican-tag-cloud/)
 ![License](https://img.shields.io/pypi/l/pelican-tag-cloud?color=blue)
 
